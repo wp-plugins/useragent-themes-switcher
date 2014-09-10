@@ -49,16 +49,10 @@ class UserAgentThemesSwitcherAdmin {
 	 * @since	1.0
 	 */
 	function plugin_options() {
+
 		if ( !current_user_can( 'manage_options' ) )  {
 			wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
 		}
-
-		$pluginurl = plugins_url($path='',$scheme=null);
-
-		wp_enqueue_style( 'jquery-ui-tabs', $pluginurl.'/useragent-themes-switcher/css/jquery-ui.css' );
-		wp_enqueue_script( 'jquery' );
-		wp_enqueue_script( 'jquery-ui-tabs' );
-		wp_enqueue_script( 'jquery-ui-tabs-in', $pluginurl.'/useragent-themes-switcher/js/jquery-ui-tabs-in.js' );
 
 		if( !empty($_POST) ) { 
 			$this->options_updated();
@@ -71,217 +65,271 @@ class UserAgentThemesSwitcherAdmin {
 		?>
 		<div class="wrap">
 			<h2>UserAgent Themes Switcher</h2>
-			<div id="tabs">
-				<ul>
-				<li><a href="#tabs-1"><?php _e('Settings'); ?></a></li>
-				<!--
-				<li><a href="#tabs-2"><?php _e('FAQ'); ?></a></li>
-				 -->
-				</ul>
-				<div id="tabs-1">
-					<div class="wrap">
-					<form method="post" action="<?php echo $scriptname; ?>">
-						<h2><?php _e('Settings of user agent and theme', 'useragentthemesswitcher') ?></h2>
-						<p class="submit">
-							<input type="submit" name="Submit" value="<?php _e('Save Changes') ?>" />
-						</p>
-						<table class="wp-list-table widefat">
-						<tbody>
-							<tr>
-								<td align="center" valign="middle"><?php _e('Themes'); ?></td>
-								<td align="center" valign="middle"><?php _e('User Agent[| Specify separated by. Regular expression is possible.]', 'useragentthemesswitcher'); ?></td>
-								<td align="center" valign="middle"><?php _e('Description'); ?></td>
-							</tr>
-							<tr>
-								<td align="center" valign="middle">
-								<select name="useragentthemesswitcher_selecttheme1">
-								<?php
-								foreach ($themes as $theme) {
-									if ( $useragentthemesswitcher_settings['device1']['theme'] === $theme['Name'] ) {
-									?>
-										<option value="<?php echo $theme['Name']; ?>" selected><?php echo $theme['Name']; ?></option>
-									<?php
 
-									} else {
-									?>
-										<option value="<?php echo $theme['Name']; ?>"><?php echo $theme['Name']; ?></option>
-									<?php
-									}
-								}
-								?>
-								</select>
-								</td>
-								<td align="center" valign="middle">
-									<textarea name="useragentthemesswitcher_useragent1" rows="4" cols="60"><?php echo $useragentthemesswitcher_settings['device1']['useragent']; ?></textarea>
-								</td>
-								<td align="center" valign="middle"><input type="text" name="useragentthemesswitcher_description1" value="<?php echo $useragentthemesswitcher_settings['device1']['description']; ?>"></td>
-							</tr>
-							<tr>
-								<td align="center" valign="middle">
-								<select name="useragentthemesswitcher_selecttheme2">
-								<?php
-								foreach ($themes as $theme) {
-									if ( $useragentthemesswitcher_settings['device2']['theme'] === $theme['Name'] ) {
-									?>
-										<option value="<?php echo $theme['Name']; ?>" selected><?php echo $theme['Name']; ?></option>
-									<?php
+			<form method="post" action="<?php echo $scriptname; ?>">
+				<h2><?php _e('Settings of user agent and theme', 'useragentthemesswitcher') ?></h2>
 
-									} else {
-									?>
-										<option value="<?php echo $theme['Name']; ?>"><?php echo $theme['Name']; ?></option>
-									<?php
-									}
-								}
-								?>
-								</select>
-								</td>
-								<td align="center" valign="middle">
-									<textarea name="useragentthemesswitcher_useragent2" rows="4" cols="60"><?php echo $useragentthemesswitcher_settings['device2']['useragent']; ?></textarea>
-								</td>
-								<td align="center" valign="middle"><input type="text" name="useragentthemesswitcher_description2" value="<?php echo $useragentthemesswitcher_settings['device2']['description']; ?>"></td>
-							</tr>
-							<tr>
-								<td align="center" valign="middle">
-								<select name="useragentthemesswitcher_selecttheme3">
-								<?php
-								foreach ($themes as $theme) {
-									if ( $useragentthemesswitcher_settings['device3']['theme'] === $theme['Name'] ) {
-									?>
-										<option value="<?php echo $theme['Name']; ?>" selected><?php echo $theme['Name']; ?></option>
-									<?php
+				<p class="submit">
+					<input type="submit" name="Submit" value="<?php _e('Save Changes') ?>" />
+				</p>
 
-									} else {
-									?>
-										<option value="<?php echo $theme['Name']; ?>"><?php echo $theme['Name']; ?></option>
-									<?php
-									}
-								}
-								?>
-								</select>
-								</td>
-								<td align="center" valign="middle">
-									<textarea name="useragentthemesswitcher_useragent3" rows="4" cols="60"><?php echo $useragentthemesswitcher_settings['device3']['useragent']; ?></textarea>
-								</td>
-								<td align="center" valign="middle"><input type="text" name="useragentthemesswitcher_description3" value="<?php echo $useragentthemesswitcher_settings['device3']['description']; ?>"></td>
-							</tr>
-							<tr>
-								<td align="center" valign="middle">
-								<select name="useragentthemesswitcher_selecttheme4">
-								<?php
-								foreach ($themes as $theme) {
-									if ( $useragentthemesswitcher_settings['device4']['theme'] === $theme['Name'] ) {
-									?>
-										<option value="<?php echo $theme['Name']; ?>" selected><?php echo $theme['Name']; ?></option>
-									<?php
+				<div style="padding:10px;border:#CCC 2px solid; margin:0 0 20px 0">
+					<div style="display:block">
+					<?php _e('Device', 'useragentthemesswitcher'); ?>1
+					</div>
+					<div style="display:block;padding:20px 0">
+					<?php _e('Themes'); ?>
+						<select name="useragentthemesswitcher_selecttheme1">
+						<?php
+						foreach ($themes as $theme) {
+							if ( $useragentthemesswitcher_settings['device1']['theme'] === $theme['Name'] ) {
+							?>
+								<option value="<?php echo $theme['Name']; ?>" selected><?php echo $theme['Name']; ?></option>
+							<?php
 
-									} else {
-									?>
-										<option value="<?php echo $theme['Name']; ?>"><?php echo $theme['Name']; ?></option>
-									<?php
-									}
-								}
-								?>
-								</select>
-								</td>
-								<td align="center" valign="middle">
-									<textarea  name="useragentthemesswitcher_useragent4" rows="4" cols="60"><?php echo $useragentthemesswitcher_settings['device4']['useragent']; ?></textarea>
-								</td>
-								<td align="center" valign="middle"><input type="text" name="useragentthemesswitcher_description4" value="<?php echo $useragentthemesswitcher_settings['device4']['description']; ?>"></td>
-							</tr>
-							<tr>
-								<td align="center" valign="middle">
-								<select name="useragentthemesswitcher_selecttheme5">
-								<?php
-								foreach ($themes as $theme) {
-									if ( $useragentthemesswitcher_settings['device5']['theme'] === $theme['Name'] ) {
-									?>
-										<option value="<?php echo $theme['Name']; ?>" selected><?php echo $theme['Name']; ?></option>
-									<?php
-
-									} else {
-									?>
-										<option value="<?php echo $theme['Name']; ?>"><?php echo $theme['Name']; ?></option>
-									<?php
-									}
-								}
-								?>
-								</select>
-								</td>
-								<td align="center" valign="middle">
-									<textarea name="useragentthemesswitcher_useragent5" rows="4" cols="60"><?php echo $useragentthemesswitcher_settings['device5']['useragent']; ?></textarea>
-								</td>
-								<td align="center" valign="middle"><input type="text" name="useragentthemesswitcher_description5" value="<?php echo $useragentthemesswitcher_settings['device5']['description']; ?>"></td>
-							</tr>
-							<tr>
-								<td align="center" valign="middle">
-								<select name="useragentthemesswitcher_selecttheme6">
-								<?php
-								foreach ($themes as $theme) {
-									if ( $useragentthemesswitcher_settings['device6']['theme'] === $theme['Name'] ) {
-									?>
-										<option value="<?php echo $theme['Name']; ?>" selected><?php echo $theme['Name']; ?></option>
-									<?php
-
-									} else {
-									?>
-										<option value="<?php echo $theme['Name']; ?>"><?php echo $theme['Name']; ?></option>
-									<?php
-									}
-								}
-								?>
-								</select>
-								</td>
-								<td align="center" valign="middle">
-									<textarea name="useragentthemesswitcher_useragent6" rows="4" cols="60"><?php echo $useragentthemesswitcher_settings['device6']['useragent']; ?></textarea>
-								</td>
-								<td align="center" valign="middle"><input type="text" name="useragentthemesswitcher_description6" value="<?php echo $useragentthemesswitcher_settings['device6']['description']; ?>"></td>
-							</tr>
-							<tr>
-								<td align="center" valign="middle">
-								<select name="useragentthemesswitcher_selecttheme7">
-								<?php
-								foreach ($themes as $theme) {
-									if ( $useragentthemesswitcher_settings['device7']['theme'] === $theme['Name'] ) {
-									?>
-										<option value="<?php echo $theme['Name']; ?>" selected><?php echo $theme['Name']; ?></option>
-									<?php
-
-									} else {
-									?>
-										<option value="<?php echo $theme['Name']; ?>"><?php echo $theme['Name']; ?></option>
-									<?php
-									}
-								}
-								?>
-								</select>
-								</td>
-								<td align="center" valign="middle">
-									<textarea name="useragentthemesswitcher_useragent7" rows="4" cols="60"><?php echo $useragentthemesswitcher_settings['device7']['useragent']; ?></textarea>
-								</td>
-								<td align="center" valign="middle"><input type="text" name="useragentthemesswitcher_description7" value="<?php echo $useragentthemesswitcher_settings['device7']['description']; ?>"></td>
-							</tr>
-						</tbody>
-						</table>
-
-						<p class="submit">
-							<input type="submit" name="Submit" value="<?php _e('Save Changes') ?>" />
-						</p>
-					</form>
-			  		</div>
+							} else {
+							?>
+								<option value="<?php echo $theme['Name']; ?>"><?php echo $theme['Name']; ?></option>
+							<?php
+							}
+						}
+						?>
+						</select>
+					</div>
+					<div>
+					<?php _e('User Agent[Regular expression is possible.]', 'useragentthemesswitcher'); ?>
+					</div>
+					<div>
+					<textarea name="useragentthemesswitcher_useragent1" rows="4" style="width: 100%;"><?php echo $useragentthemesswitcher_settings['device1']['useragent']; ?></textarea>
+					</div>
+					<div style="display:block;padding:20px 0">
+					<?php _e('Description'); ?>
+					<input type="text" name="useragentthemesswitcher_description1" value="<?php echo $useragentthemesswitcher_settings['device1']['description']; ?>">
+					</div>
 				</div>
 
-				<!--
-				<div id="tabs-2">
-					<div class="wrap">
-					<h2>FAQ</h2>
+				<div style="padding:10px;border:#CCC 2px solid; margin:0 0 20px 0">
+					<div style="display:block">
+					<?php _e('Device', 'useragentthemesswitcher'); ?>2
 					</div>
-		  		</div>
-				-->
-			</div>
+					<div style="display:block;padding:20px 0">
+					<?php _e('Themes'); ?>
+						<select name="useragentthemesswitcher_selecttheme2">
+						<?php
+						foreach ($themes as $theme) {
+							if ( $useragentthemesswitcher_settings['device2']['theme'] === $theme['Name'] ) {
+							?>
+								<option value="<?php echo $theme['Name']; ?>" selected><?php echo $theme['Name']; ?></option>
+							<?php
+
+							} else {
+							?>
+								<option value="<?php echo $theme['Name']; ?>"><?php echo $theme['Name']; ?></option>
+							<?php
+							}
+						}
+						?>
+						</select>
+					</div>
+					<div>
+					<?php _e('User Agent[Regular expression is possible.]', 'useragentthemesswitcher'); ?>
+					</div>
+					<div>
+					<textarea name="useragentthemesswitcher_useragent2" rows="4" style="width: 100%;"><?php echo $useragentthemesswitcher_settings['device2']['useragent']; ?></textarea>
+					</div>
+					<div style="display:block;padding:20px 0">
+					<?php _e('Description'); ?>
+					<input type="text" name="useragentthemesswitcher_description2" value="<?php echo $useragentthemesswitcher_settings['device2']['description']; ?>">
+					</div>
+				</div>
+
+				<div style="padding:10px;border:#CCC 2px solid; margin:0 0 20px 0">
+					<div style="display:block">
+					<?php _e('Device', 'useragentthemesswitcher'); ?>3
+					</div>
+					<div style="display:block;padding:20px 0">
+					<?php _e('Themes'); ?>
+						<select name="useragentthemesswitcher_selecttheme3">
+						<?php
+						foreach ($themes as $theme) {
+							if ( $useragentthemesswitcher_settings['device3']['theme'] === $theme['Name'] ) {
+							?>
+								<option value="<?php echo $theme['Name']; ?>" selected><?php echo $theme['Name']; ?></option>
+							<?php
+
+							} else {
+							?>
+								<option value="<?php echo $theme['Name']; ?>"><?php echo $theme['Name']; ?></option>
+							<?php
+							}
+						}
+						?>
+						</select>
+					</div>
+					<div>
+					<?php _e('User Agent[Regular expression is possible.]', 'useragentthemesswitcher'); ?>
+					</div>
+					<div>
+					<textarea name="useragentthemesswitcher_useragent3" rows="4" style="width: 100%;"><?php echo $useragentthemesswitcher_settings['device3']['useragent']; ?></textarea>
+					</div>
+					<div style="display:block;padding:20px 0">
+					<?php _e('Description'); ?>
+					<input type="text" name="useragentthemesswitcher_description3" value="<?php echo $useragentthemesswitcher_settings['device3']['description']; ?>">
+					</div>
+				</div>
+
+				<div style="padding:10px;border:#CCC 2px solid; margin:0 0 20px 0">
+					<div style="display:block">
+					<?php _e('Device', 'useragentthemesswitcher'); ?>4
+					</div>
+					<div style="display:block;padding:20px 0">
+					<?php _e('Themes'); ?>
+						<select name="useragentthemesswitcher_selecttheme4">
+						<?php
+						foreach ($themes as $theme) {
+							if ( $useragentthemesswitcher_settings['device4']['theme'] === $theme['Name'] ) {
+							?>
+								<option value="<?php echo $theme['Name']; ?>" selected><?php echo $theme['Name']; ?></option>
+							<?php
+
+							} else {
+							?>
+								<option value="<?php echo $theme['Name']; ?>"><?php echo $theme['Name']; ?></option>
+							<?php
+							}
+						}
+						?>
+						</select>
+					</div>
+					<div>
+					<?php _e('User Agent[Regular expression is possible.]', 'useragentthemesswitcher'); ?>
+					</div>
+					<div>
+					<textarea name="useragentthemesswitcher_useragent4" rows="4" style="width: 100%;"><?php echo $useragentthemesswitcher_settings['device4']['useragent']; ?></textarea>
+					</div>
+					<div style="display:block;padding:20px 0">
+					<?php _e('Description'); ?>
+					<input type="text" name="useragentthemesswitcher_description4" value="<?php echo $useragentthemesswitcher_settings['device4']['description']; ?>">
+					</div>
+				</div>
+
+				<div style="padding:10px;border:#CCC 2px solid; margin:0 0 20px 0">
+					<div style="display:block">
+					<?php _e('Device', 'useragentthemesswitcher'); ?>5
+					</div>
+					<div style="display:block;padding:20px 0">
+					<?php _e('Themes'); ?>
+						<select name="useragentthemesswitcher_selecttheme5">
+						<?php
+						foreach ($themes as $theme) {
+							if ( $useragentthemesswitcher_settings['device5']['theme'] === $theme['Name'] ) {
+							?>
+								<option value="<?php echo $theme['Name']; ?>" selected><?php echo $theme['Name']; ?></option>
+							<?php
+
+							} else {
+							?>
+								<option value="<?php echo $theme['Name']; ?>"><?php echo $theme['Name']; ?></option>
+							<?php
+							}
+						}
+						?>
+						</select>
+					</div>
+					<div>
+					<?php _e('User Agent[Regular expression is possible.]', 'useragentthemesswitcher'); ?>
+					</div>
+					<div>
+					<textarea name="useragentthemesswitcher_useragent5" rows="4" style="width: 100%;"><?php echo $useragentthemesswitcher_settings['device5']['useragent']; ?></textarea>
+					</div>
+					<div style="display:block;padding:20px 0">
+					<?php _e('Description'); ?>
+					<input type="text" name="useragentthemesswitcher_description5" value="<?php echo $useragentthemesswitcher_settings['device5']['description']; ?>">
+					</div>
+				</div>
+
+				<div style="padding:10px;border:#CCC 2px solid; margin:0 0 20px 0">
+					<div style="display:block">
+					<?php _e('Device', 'useragentthemesswitcher'); ?>6
+					</div>
+					<div style="display:block;padding:20px 0">
+					<?php _e('Themes'); ?>
+						<select name="useragentthemesswitcher_selecttheme6">
+						<?php
+						foreach ($themes as $theme) {
+							if ( $useragentthemesswitcher_settings['device6']['theme'] === $theme['Name'] ) {
+							?>
+								<option value="<?php echo $theme['Name']; ?>" selected><?php echo $theme['Name']; ?></option>
+							<?php
+
+							} else {
+							?>
+								<option value="<?php echo $theme['Name']; ?>"><?php echo $theme['Name']; ?></option>
+							<?php
+							}
+						}
+						?>
+						</select>
+					</div>
+					<div>
+					<?php _e('User Agent[Regular expression is possible.]', 'useragentthemesswitcher'); ?>
+					</div>
+					<div>
+					<textarea name="useragentthemesswitcher_useragent6" rows="4" style="width: 100%;"><?php echo $useragentthemesswitcher_settings['device6']['useragent']; ?></textarea>
+					</div>
+					<div style="display:block;padding:20px 0">
+					<?php _e('Description'); ?>
+					<input type="text" name="useragentthemesswitcher_description6" value="<?php echo $useragentthemesswitcher_settings['device6']['description']; ?>">
+					</div>
+				</div>
+
+				<div style="margin:20px 0; padding:10px; border:#CCC 2px solid">
+					<div style="display:block">
+					<?php _e('Device', 'useragentthemesswitcher'); ?>7
+					</div>
+					<div style="display:block;padding:20px 0">
+					<?php _e('Themes'); ?>
+						<select name="useragentthemesswitcher_selecttheme7">
+						<?php
+						foreach ($themes as $theme) {
+							if ( $useragentthemesswitcher_settings['device7']['theme'] === $theme['Name'] ) {
+							?>
+								<option value="<?php echo $theme['Name']; ?>" selected><?php echo $theme['Name']; ?></option>
+							<?php
+
+							} else {
+							?>
+								<option value="<?php echo $theme['Name']; ?>"><?php echo $theme['Name']; ?></option>
+							<?php
+							}
+						}
+						?>
+						</select>
+					</div>
+					<div>
+					<?php _e('User Agent[Regular expression is possible.]', 'useragentthemesswitcher'); ?>
+					</div>
+					<div>
+					<textarea name="useragentthemesswitcher_useragent7" rows="4" style="width: 100%;"><?php echo $useragentthemesswitcher_settings['device7']['useragent']; ?></textarea>
+					</div>
+					<div style="display:block;padding:20px 0">
+					<?php _e('Description'); ?>
+					<input type="text" name="useragentthemesswitcher_description7" value="<?php echo $useragentthemesswitcher_settings['device7']['description']; ?>">
+					</div>
+				</div>
+
+				<div style="clear:both"></div>
+
+				<p class="submit">
+					<input type="submit" name="Submit" value="<?php _e('Save Changes') ?>" />
+				</p>
+
+			</form>
+
 		</div>
 		<?php
-	}
 
+	}
 
 	/* ==================================================
 	 * Update wp_options table.
