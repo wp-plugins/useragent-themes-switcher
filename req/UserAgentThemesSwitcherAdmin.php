@@ -66,12 +66,19 @@ class UserAgentThemesSwitcherAdmin {
 		<div class="wrap">
 			<h2>UserAgent Themes Switcher</h2>
 
+			<div style="padding:10px;border:#CCC 2px solid; margin:0 0 20px 0">
+				<h3><?php _e('I need a donation. This is because, I want to continue the development and support of plugins.', 'useragentthemesswitcher'); ?></h3>
+				<div align="right">Katsushi Kawamori</div>
+				<h3 style="float: left;"><?php _e('Donate to this plugin &#187;'); ?></h3>
+	<a href='https://pledgie.com/campaigns/28307' target="_blank"><img alt='Click here to lend your support to: Various Plugins for WordPress and make a donation at pledgie.com !' src='https://pledgie.com/campaigns/28307.png?skin_name=chrome' border='0' ></a>
+			</div>
+
 			<form method="post" action="<?php echo $scriptname; ?>">
 				<h2><?php _e('Settings of user agent and theme', 'useragentthemesswitcher') ?></h2>
 
-				<p class="submit">
+				<div class="submit">
 					<input type="submit" name="Submit" value="<?php _e('Save Changes') ?>" />
-				</p>
+				</div>
 
 				<div style="padding:10px;border:#CCC 2px solid; margin:0 0 20px 0">
 					<div style="display:block">
@@ -364,6 +371,7 @@ class UserAgentThemesSwitcherAdmin {
 		if(isset($_POST['useragentthemesswitcher_description7'])){ $settings_tbl['device7']['description'] = $_POST['useragentthemesswitcher_description7']; }
 
 		update_option( 'useragentthemesswitcher_settings', $settings_tbl );
+		echo '<div class="updated"><ul><li>'.__('Settings saved.').'</li></ul></div>';
 
 	}
 }

@@ -2,10 +2,11 @@
 /*
 Plugin Name: UserAgent Themes Switcher
 Plugin URI: http://wordpress.org/plugins/useragent-themes-switcher/
-Version: 1.1
+Version: 1.2
 Description: Switch the theme by the user agent. Can be specified user agent by a regular expression.
 Author: Katsushi Kawamori
-Author URI: http://gallerylink.nyanko.org/
+Author URI: http://riverforest-wp.info/
+Text Domain: useragentthemesswitcher
 Domain Path: /languages
 */
 

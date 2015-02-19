@@ -1,10 +1,10 @@
 === UserAgent Themes Switcher ===
 Contributors: Katsushi Kawamori
-Donate link: http://gallerylink.nyanko.org/
+Donate link: http://pledgie.com/campaigns/28307
 Tags:  Browser, phone, platform, tablet, theme, themes, user agent, useragent, web, web browser
 Requires at least: 3.0.1
-Tested up to: 3.4
-Stable tag: 1.1
+Tested up to: 4.1
+Stable tag: 1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -19,7 +19,7 @@ Switch the theme by the user agent. Can be specified user agent by a regular exp
 
 Translators
 
-*   Japanese (ja) - [Katsushi Kawamori](http://gallerylink.nyanko.org/)
+*   Japanese (ja) - [Katsushi Kawamori](http://riverforest-wp.info/)
 
 == Installation ==
 
@@ -37,6 +37,12 @@ none
 
 == Changelog ==
 
+= 1.2 =
+Add screen of donate.
+Change the display of the message.
+Change readme.txt.
+Change /languages.
+
 = 1.1 =
 Change management screen to responsive menu design.
 
@@ -44,6 +50,7 @@ Change management screen to responsive menu design.
 
 == Upgrade Notice ==
 
+= 1.2 =
 = 1.1 =
 = 1.0 =
 
