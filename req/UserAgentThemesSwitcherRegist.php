@@ -28,7 +28,7 @@ class UserAgentThemesSwitcherRegist {
 	function register_settings(){
 
 		$themes = wp_get_themes();
-		$nowtheme = get_option('Template');
+		$nowtheme = get_option('template');
 		foreach ($themes as $theme) {
 			if ( $nowtheme === $theme['Template'] ) {
 				$nowtheme_name = $theme['Name'];
