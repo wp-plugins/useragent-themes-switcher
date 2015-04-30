@@ -62,12 +62,8 @@ class UserAgentThemesSwitcher {
 	function LoadStyleTheme(){
 
 		$themes = wp_get_themes();
-		$nowtheme = get_option('Template');
-		foreach ($themes as $theme) {
-			if ( $nowtheme === $theme['Template'] ) {
-				$nowtheme_stylesheet = $theme['Stylesheet'];
-			}
-		}
+		$nowtheme = get_option('template');
+		$nowtheme_stylesheet = get_option('stylesheet');
 
 		$device = $this->agent_check();
 		if( $device === 'device0' ){

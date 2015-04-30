@@ -3,8 +3,8 @@ Contributors: Katsushi Kawamori
 Donate link: http://pledgie.com/campaigns/28307
 Tags:  Browser, phone, platform, tablet, theme, themes, user agent, useragent, web, web browser
 Requires at least: 3.0.1
-Tested up to: 4.1
-Stable tag: 1.2
+Tested up to: 4.2
+Stable tag: 1.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -37,6 +37,9 @@ none
 
 == Changelog ==
 
+= 1.3 =
+Fixed problem of switching of themes and child themes.
+
 = 1.2 =
 Add screen of donate.
 Change the display of the message.
@@ -50,6 +53,7 @@ Change management screen to responsive menu design.
 
 == Upgrade Notice ==
 
+= 1.3 =
 = 1.2 =
 = 1.1 =
 = 1.0 =
